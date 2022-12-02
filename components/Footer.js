@@ -1,0 +1,24 @@
+import Link from 'next/link';
+import Image from 'next/image'
+
+export default function Footer() {
+  return (
+    <div class="bg-slate-800 pt-4 pb-1">
+      <footer>
+        <div class="flex justify-between max-w-5xl mx-3 text-white">
+          <div>
+            <span class="text-xs">Analoggame Renjoy Tool.com</span>
+          </div>
+          <div>
+            <Link href="/about" class="mx-3 text-xs">
+              サイトについて
+            </Link>
+            <Link href="/contact" class="text-xs">
+              お問い合せ
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
