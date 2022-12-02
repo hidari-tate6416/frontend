@@ -13,6 +13,9 @@ $ docker-compose up
 ローカルサイト起動
 $ npm run dev
 
+Docker内に入る
+$ insider_game-frontend % docker exec -it insider_game-frontend_app_1 bash
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

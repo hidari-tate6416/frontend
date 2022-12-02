@@ -5,7 +5,7 @@ import Index from '../components/index.js'
 
 export default function Home() {
   return (
-    <Index title="試し">
+    <Index title="このサイトについて">
       <div>
         本文として表示されます
       </div>
