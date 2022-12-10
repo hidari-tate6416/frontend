@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import Header from './Header.js';
-import Footer from './Footer.js';
+import Header from './parts/Header.js';
+import Footer from './parts/Footer.js';
 
 export default function Index({title, children}) {
   return (
-    <div class="">
-      <div class="bg-slate-200 mx-auto w-full md:w-1/2">
+    <div class="bg-slate-200 mx-auto w-full md:w-1/2">
+      <div class="h-screen">
         <Header />
 
         <div>

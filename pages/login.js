@@ -1,10 +1,12 @@
-import Index from '../components/index.js';
-import Button from '../components/Button.js';
+import Index from '../components/Index.js';
+import Button from '../components/parts/Button.js';
 import { useState } from "react";
+import { useRouter } from "next/router";
 import API from './../plugins/customAxios.js';
 
 export default function Login() {
 
+  const router = useRouter();
   const [alertText, setAlertText] = useState("");
 
   async function loginClick() {
@@ -31,7 +33,7 @@ export default function Login() {
           }
           return config;
       });
-      console.log('Nice!');
+      router.push({ pathname: "mypage/"});
     }).catch(err => {
       console.log(err);
     });
