@@ -22,7 +22,7 @@ function PointCount() {
         setRooms(res.data.rooms);
         return res;
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
         return err;
       });
 
@@ -30,7 +30,7 @@ function PointCount() {
         setColors(res.data.menus);
         return res;
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
         return err;
       });
     }

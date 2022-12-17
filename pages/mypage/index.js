@@ -18,7 +18,7 @@ function Index() {
         setUserType(res.data.user_type_id);
         return res;
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
         return err;
       });
     }

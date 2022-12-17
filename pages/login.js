@@ -37,8 +37,8 @@ export default function Login() {
         router.push({ pathname: "mypage/"});
       }
     }).catch(err => {
-      console.log('error');
-      console.log(err);
+      // console.log('error');
+      // console.log(err);
     });
   }
 
