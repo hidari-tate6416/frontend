@@ -1,8 +1,16 @@
 import Link from 'next/link';
 import Image from 'next/image'
 import Head from 'next/head'
+import { useRouter } from "next/router";
 
 export default function Header() {
+
+  const router = useRouter();
+
+  function moveTop() {
+    router.push({ pathname: "/"});
+  }
+
   return (
     <div class="bg-white">
       <Head>
@@ -11,7 +19,7 @@ export default function Header() {
       </Head>
       <header>
         <div class="flex justify-between max-w-5xl mx-auto">
-          <button>
+          <button onClick={ moveTop }>
             <Image src="/logos/art20060px.png" width={200} height={60} objectFit="contain" />
           </button>
           <a class="text-2xl font-logo my-auto mx-3">menu</a>

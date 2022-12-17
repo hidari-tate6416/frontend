@@ -8,7 +8,7 @@ export default function Mypage({title, children}) {
       <div class="h-screen">
         <MyHeader />
 
-        <div class="">
+        <div class="animate-text-focus-in italic text-4xl my-5 text-center mx-auto">
           { title }
         </div>
         <div class="w-5/6 mx-auto my-5">
