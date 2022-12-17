@@ -12,8 +12,8 @@ export default function Login() {
   async function loginClick() {
     setAlertText("");
 
-    document.getElementById("loginId").value = 'tate6416';
-    document.getElementById("password").value = 'tatemiti1';
+    document.getElementById("loginId").value = 'hiroto';
+    document.getElementById("password").value = 'hiroto';
 
     let loginId = document.getElementById('loginId');
     let password = document.getElementById('password');
@@ -26,15 +26,18 @@ export default function Login() {
       "login_id": loginId.value,
       "password": password.value
     }).then(res => {
-      API.interceptors.request.use(
-        async config => {
-          config.headers = {
-            'Authorization': `Bearer ` + res.token,
-          }
-          return config;
-      });
-      router.push({ pathname: "mypage/"});
+      if ('OK' === res.data.result) {
+        API.interceptors.request.use(
+          async config => {
+            config.headers = {
+              'Authorization': `Bearer ` + res.data.token,
+            }
+            return config;
+        });
+        router.push({ pathname: "mypage/"});
+      }
     }).catch(err => {
+      console.log('error');
       console.log(err);
     });
   }
