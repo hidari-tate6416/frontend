@@ -14,6 +14,10 @@ function PointCount() {
   const [colors, setColors] = useState([]);
   const [userType, setUserType] = useState(router.query.userType);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [roomId, setRoomId] = useState(0);
+  const [roomName, setRoomName] = useState('');
+  const [members, setMember] = useState([]);
 
 
   useEffect(() => {
@@ -67,42 +71,77 @@ function PointCount() {
       "guest4_color": guest4Color.value,
     }).then(res => {
       if ('OK' === res.data.result) {
-        router.push({ pathname: "point_room", query: {memberNo: 0}}, "point_room");
+        router.push({ pathname: "point_room", query: {memberNo: 0, scoreRoomId: res.data.score_room_id}}, "point_room");
       }
     });
-  }
-
-  async function selectRoom(roomId) {
-    //
   }
 
   async function clooseCreateModal() {
     setShowCreateModal(false);
   }
 
+  async function showSelectRoom(roomId, joinRoomName) {
+    setRoomId(roomId);
+    setRoomName(joinRoomName);
+
+    await API.get('app/get_score_room?score_room_id=' + roomId).then(res => {
+      if ('OK' === res.data.result) {
+        setMember(res.data.room.guests);
+      }
+    });
+
+    setShowJoinModal(true);
+  }
+
+  async function joinRoomComplete() {
+    let joinRoomPassword = document.getElementById('joinRoomPassword');
+    let joinMemberNo = document.getElementById('joinMemberNo');
+    if (!joinRoomPassword.value || !joinMemberNo.value) {
+      setAlertText("入力内容が不足しています。");
+      return;
+    }
+
+    await API.post('app/join_score_room', {
+      "score_room_id": roomId,
+      "member_no": joinMemberNo.value,
+      "room_password": joinRoomPassword.value
+    }).then(res => {
+      if ('OK' === res.data.result) {
+        router.push({ pathname: "point_room", query: {memberNo: joinMemberNo.value, scoreRoomId: roomId}}, "point_room");
+      }
+    });
+  }
+
+  async function closeSelectRoom() {
+    setShowJoinModal(false);
+    setRoomId(0);
+  }
+
   return (
     <Mypage title="ポイントカウント">
       <div>
-        <div class="my-5 mx-auto text-center">
+        <div class="py-3 my-5 mx-auto text-center bg-white">
           <div class="my-6">参加したい部屋を選ぶか部屋を作って楽しみましょう。</div>
           <Button func={ createRoom }>部屋を作る</Button>
         </div>
-        <table class="table-auto w-full mx-auto text-center">
-          <thead>
-            <tr>
-              <th>テーブル名</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {rooms.map(room => (
+        <div class="py-3 bg-white">
+          <table class="table-auto w-full mx-auto text-center bg-white">
+            <thead>
               <tr>
-                <td class="h-24 text-2xl md:text-3xl mr-4">{ room.room_name }</td>
-                <td><SmallButton func={ selectRoom(room.room_id) }>部屋に入る</SmallButton></td>
+                <th>テーブル名</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rooms.map(room => (
+                <tr>
+                  <td class="h-24 text-2xl md:text-3xl mr-4">{ room.room_name }</td>
+                  <td><SmallButton func={ () => showSelectRoom(room.room_id, room.room_name) }>部屋に入る</SmallButton></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <CustomModal
         modalShow={ showCreateModal }
@@ -171,6 +210,35 @@ function PointCount() {
                 <option value="0">プレイヤーなし</option>
                 {colors.map(color => (
                   <option value={ color.id }>{ color.name }</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </CustomModal>
+      <CustomModal
+        modalShow={ showJoinModal }
+        closeModalFunc={ closeSelectRoom }
+        buttonFunc={ joinRoomComplete }
+        buttonText='部屋に入る'
+      >
+        <div>
+          <div class="text-center text-3xl">ルーム参加</div>
+          <div class="md:flex mt-5">
+            <div class="flex justify-between mb-3">
+              <span class="my-auto md:mr-4">ルーム名</span>
+              <span class="my-auto">{ roomName }</span>
+            </div>
+            <div class="flex justify-between md:ml-10 my-auto mb-3">
+              <span class="my-auto md:mr-4">ルームパスワード</span>
+              <input type="text" id="joinRoomPassword" class="py-2 pl-2 rounded-md border-2 border-black" placeholder="1234" />
+            </div>
+            <div class="flex justify-between md:ml-10 my-auto mb-3">
+              <span class="my-auto md:mr-4">自分のプレイヤーカラー</span>
+              <select id="joinMemberNo" class="h-10 rounded-md border-2 border-black">
+                <option value="0">選択してください</option>
+                {members.map(member => (
+                  <option value={ member.member_no }>プレイヤー{ member.member_no }{ member.color_id.name_ja }</option>
                 ))}
               </select>
             </div>
