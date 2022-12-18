@@ -5,13 +5,17 @@ import Footer from './parts/Footer.js';
 export default function Index({title, children}) {
   return (
     <div class="bg-slate-200 mx-auto w-full md:w-1/2">
-      <div class="h-screen">
+      <div class="flex flex-col h-screen">
         <Header />
 
-        <div>
-          { title }
+        <div class="flex-grow">
+          <div>
+            { title }
+          </div>
+          <div>
+            { children }
+          </div>
         </div>
-        <div>{ children }</div>
 
         <Footer />
       </div>
