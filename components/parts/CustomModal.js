@@ -20,7 +20,7 @@ const modalStyle = {
   }
 };
 
-function CustomModal({children, modalShow, closeModalFunc, buttonFunc, buttonText}) {
+function CustomModal({children, modalShow, closeModalFunc}) {
 
   return (
     <Modal
@@ -33,10 +33,6 @@ function CustomModal({children, modalShow, closeModalFunc, buttonFunc, buttonTex
       </div>
       <div class="">
         { children }
-      </div>
-
-      <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
-        <SmallButton func={ buttonFunc }>{ buttonText }</SmallButton>
       </div>
     </Modal>
   )
