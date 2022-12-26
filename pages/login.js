@@ -50,11 +50,11 @@ export default function Login() {
         </div>
         <span class="text-xs">ログインIDとパスワードを入力してログインボタンを押してください</span>
         <div class="mt-5 mb-3 w-1/2 md:w-1/3 mx-auto text-left">
-          <div class="mb-5">
+          <div class="mb-5 mx-auto">
             <span class="text-xl">Login id</span>
             <input type="text" id="loginId" class="mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="ログインID" />
           </div>
-          <div class="mb-10">
+          <div class="mb-10 mx-auto">
             <span class="text-xl">password</span>
             <input type="text" id="password" class="mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="パスワード" />
           </div>

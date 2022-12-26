@@ -18,10 +18,17 @@ function PointCount() {
   const [roomId, setRoomId] = useState(0);
   const [roomName, setRoomName] = useState('');
   const [members, setMember] = useState([]);
-
+  const [alertText, setAlertText] = useState("");
 
   useEffect(() => {
     async function fetchData() {
+      await API.get('app/reset_score_room').then(res => {
+        return res;
+      }).catch(err => {
+        // console.log(err);
+        return err;
+      });
+
       await API.get('app/list_score_room').then(res => {
         setRooms(res.data.rooms);
         return res;
@@ -146,8 +153,6 @@ function PointCount() {
       <CustomModal
         modalShow={ showCreateModal }
         closeModalFunc={ clooseCreateModal }
-        buttonFunc={ createRoomComplete }
-        buttonText='部屋を作る'
       >
         <div>
           <div class="text-center text-3xl">ルーム作成</div>
@@ -214,13 +219,14 @@ function PointCount() {
               </select>
             </div>
           </div>
+          <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
+            <SmallButton func={ () => createRoomComplete() }>部屋を作る</SmallButton>
+          </div>
         </div>
       </CustomModal>
       <CustomModal
         modalShow={ showJoinModal }
         closeModalFunc={ closeSelectRoom }
-        buttonFunc={ joinRoomComplete }
-        buttonText='部屋に入る'
       >
         <div>
           <div class="text-center text-3xl">ルーム参加</div>
@@ -242,6 +248,9 @@ function PointCount() {
                 ))}
               </select>
             </div>
+          </div>
+          <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
+            <SmallButton func={ () => joinRoomComplete() }>部屋に入る</SmallButton>
           </div>
         </div>
       </CustomModal>
