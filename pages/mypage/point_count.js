@@ -92,7 +92,7 @@ function PointCount() {
     setRoomName(joinRoomName);
 
     await API.get('app/get_score_room?score_room_id=' + roomId).then(res => {
-      console.log(res);
+      // console.log(res);
       if ('OK' === res.data.result) {
         setMember(res.data.room.guests);
       }

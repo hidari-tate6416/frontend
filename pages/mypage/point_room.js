@@ -80,7 +80,7 @@ function PointRoom() {
 
   async function changePoint(member_no, point) {
     let beforeScore = getScores[member_no];
-    let afterScore = beforeScore + point;
+    // let afterScore = beforeScore + point;
     let scoreDiv = document.getElementById(member_no);
     if (0 == beforeScore) {
       scoreDiv.classList.remove("invisible");
