@@ -14,6 +14,9 @@ module.exports = {
         "text-shadow-pop-bl": "text-shadow-pop-bl 0.6s ease   both",
         "text-focus-in": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530)   both",
         "kenburns-bottom": "kenburns-bottom 5s ease   both",
+        "fade-in-top": "fade-in-top 1s ease   both",
+        "fade-out-bottom": "fade-out-bottom 1s ease   both",
+        "change-score": "change-score 0.5s ease   both",
       },
       keyframes: {
         "text-shadow-pop-bl": {
@@ -44,6 +47,37 @@ module.exports = {
           to: {
               transform: "scale(1.25) translateY(15px)",
               "transform-origin": "top"
+          }
+        },
+        "fade-in-top": {
+          "0%": {
+            transform: "translateY(50px)",
+            opacity: "0"
+          },
+          to: {
+            transform: "translateY(0)",
+            opacity: "1"
+          }
+        },
+        "fade-out-bottom": {
+          "0%": {
+            transform: "translateY(0)",
+            opacity: "1"
+          },
+          to: {
+            transform: "translateY(50px)",
+            opacity: "0"
+          }
+        },
+        "change-score": {
+          "0%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.4)",
+          },
+          to : {
+            transform: "scale(1)",
           }
         },
       }

@@ -8,7 +8,7 @@ export default function Header() {
   const router = useRouter();
 
   function moveTop() {
-    router.push({ pathname: "/"});
+    router.push({ pathname: "/login"});
   }
 
   return (
@@ -22,7 +22,7 @@ export default function Header() {
           <button onClick={ moveTop }>
             <Image src="/logos/art20060px.png" width={200} height={60} objectFit="contain" />
           </button>
-          <a class="text-2xl font-logo my-auto mx-3">menu</a>
+          <a class="invisible text-2xl font-logo my-auto mx-3">menu</a>
         </div>
       </header>
     </div>

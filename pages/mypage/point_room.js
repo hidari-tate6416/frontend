@@ -79,10 +79,32 @@ function PointRoom() {
   }
 
   async function changePoint(member_no, point) {
+    let beforeScore = getScores[member_no];
+    let afterScore = beforeScore + point;
+    let scoreDiv = document.getElementById(member_no);
+    if (0 == beforeScore) {
+      scoreDiv.classList.remove("invisible");
+      scoreDiv.classList.add("animate-fade-in-top");
+      scoreDiv.addEventListener("animationend", () => scoreDiv.classList.remove("animate-fade-in-top"));
+      scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.remove("animate-fade-in-top"));
+      scoreDiv.addEventListener("animationend", () => scoreDiv.classList.remove("invisible"));
+      scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.remove("invisible"));
+    }
+    else {
+      scoreDiv.classList.remove("invisible");
+      scoreDiv.classList.add("animate-change-score");
+      scoreDiv.addEventListener("animationend", () => scoreDiv.classList.remove("animate-change-score"));
+      scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.remove("animate-change-score"));
+      scoreDiv.addEventListener("animationend", () => scoreDiv.classList.remove("invisible"));
+      scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.remove("invisible"));
+      // scoreDiv.classList.add("animate-fade-out-bottom");
+      // scoreDiv.addEventListener("animationend", () => scoreDiv.classList.remove("animate-fade-out-bottom"));
+      // scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.remove("animate-fade-out-bottom"));
+    }
+
     setGetScores(
       getScores.map((getScore, index) => (index == member_no ? getScore + point : getScore))
     );
-    // console.log(getScores);
   }
 
   async function openMenu() {
@@ -95,7 +117,7 @@ function PointRoom() {
 
   async function leaveRoom() {
     if (0 === memberNo) {
-      await API.post('app/logout_score_room?score_room_id=' + roomId).then(res => {
+      await API.get('app/logout_score_room?score_room_id=' + roomId).then(res => {
         if ('OK' == res.data.result) {
           router.push({ pathname: "point_count" });
         }
@@ -106,10 +128,11 @@ function PointRoom() {
       });
     }
     else {
-      await API.post('app/logout_score_room', {
+      await API.post('app/logout_guest_score_room', {
         "score_room_id": roomId,
         "member_no": memberNo
       }).then(res => {
+        // console.log(res);
         if ('OK' == res.data.result) {
           router.push({ pathname: "point_count" });
         }
@@ -135,6 +158,16 @@ function PointRoom() {
   }
 
   async function changeScore() {
+    // animation
+    const memberCount = otherMembers.length;
+    for (let memberIndex = 0; memberIndex <= memberCount; memberIndex++) {
+      let scoreDiv = document.getElementById(memberIndex);
+      scoreDiv.classList.add("animate-fade-out-bottom");
+      scoreDiv.addEventListener("animationend", () => scoreDiv.classList.remove("animate-fade-out-bottom"));
+      scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.remove("animate-fade-out-bottom"));
+    }
+
+    // API
     await API.post('app/update_score_room', {
       "score_room_id": roomId,
       "scores": getScores
@@ -148,14 +181,28 @@ function PointRoom() {
       // console.log(err);
       return err;
     });
+
+    resetScore();
   }
 
   async function updateScore() {
     getScore();
+    resetScore();
   }
 
   async function resetScore() {
     setGetScores([0, 0, 0, 0, 0]);
+
+    // animation
+    const memberCount = otherMembers.length;
+    for (let memberIndex = 0; memberIndex <= memberCount; memberIndex++) {
+      let scoreDiv = document.getElementById(memberIndex);
+      scoreDiv.classList.add("animate-fade-out-bottom");
+      scoreDiv.addEventListener("animationend", () => scoreDiv.classList.remove("animate-fade-out-bottom"));
+      scoreDiv.addEventListener("animationend", () => scoreDiv.classList.add("invisible"));
+      scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.remove("animate-fade-out-bottom"));
+      scoreDiv.addEventListener("animationcancel", () => scoreDiv.classList.add("invisible"));
+    }
   }
 
   return (
@@ -167,7 +214,7 @@ function PointRoom() {
       <div class="h-screen">
         <div class="hidden">
           bg-white
-          bg-brack
+          bg-black
           bg-red-500
           bg-blue-500
           bg-yellow-500
@@ -194,10 +241,10 @@ function PointRoom() {
                   <button onClick={ () => changePoint(otherMember.member_no, -1) } class="hover:bg-black/[.1] active:bg-black/[.3] w-full h-full">＜</button>
                 </div>
                 <div class="w-1/5 my-auto h-full">
-                  <div class="h-1/3">
-                    {(0 !== getScores[otherMember.member_no]) &&
-                      <span>{ getScores[otherMember.member_no] }</span>
-                    }
+                  <div id={`${otherMember.member_no}`} class="invisible h-1/3">
+                    {/* {(0 !== getScores[otherMember.member_no]) && */}
+                      <span>{ (0 < getScores[otherMember.member_no]) ? '+' + getScores[otherMember.member_no] : getScores[otherMember.member_no] }</span>
+                    {/* } */}
                   </div>
                   <div class="h-1/3">
                     { otherMember.score }
@@ -226,10 +273,10 @@ function PointRoom() {
             </div>
             <div class="w-1/5 my-auto h-full">
               <div class="h-1/2">
-                <div class="h-1/2 my-auto">
-                  {(0 !== getScores[memberNo]) &&
+                <div id={ memberNo } class="h-1/2 my-auto">
+                  {/* {(0 !== getScores[memberNo]) && */}
                     <span>{ getScores[memberNo] }</span>
-                  }
+                  {/* } */}
                 </div>
                 <div class="h-1/2 my-auto">
                   { myScore }
@@ -237,13 +284,13 @@ function PointRoom() {
               </div>
               <div class="h-1/2 w-full text-base">
                 <div class="h-1/3 w-full my-auto">
-                  <button onClick={ () => changeScore() } class="bg-white rounded border-2 border-black h-5/6 w-full">スコア反映</button>
+                  <button onClick={ () => changeScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">スコア反映</button>
                 </div>
                 <div class="h-1/3 w-full my-auto">
-                  <button onClick={ () => updateScore() } class="bg-white rounded border-2 border-black h-5/6 w-full">スコア更新</button>
+                  <button onClick={ () => updateScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">スコア更新</button>
                 </div>
                 <div class="h-1/3 w-full my-auto">
-                  <button onClick={ () => resetScore() } class="bg-white rounded border-2 border-black h-5/6 w-full">リセット</button>
+                  <button onClick={ () => resetScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">リセット</button>
                 </div>
               </div>
             </div>
@@ -262,10 +309,10 @@ function PointRoom() {
           <div>
             <div class="text-center text-3xl">メニュー</div>
             <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
-              <SmallButton func={ () => leaveRoom }>部屋から出る</SmallButton>
+              <SmallButton func={ () => leaveRoom() }>部屋から出る</SmallButton>
             </div>
             <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
-              <SmallButton func={ () => closeMenu }>メニューを閉じる</SmallButton>
+              <SmallButton func={ () => closeMenu() }>メニューを閉じる</SmallButton>
             </div>
           </div>
         </CustomModal>

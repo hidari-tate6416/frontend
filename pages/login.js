@@ -12,8 +12,8 @@ export default function Login() {
   async function loginClick() {
     setAlertText("");
 
-    document.getElementById("loginId").value = 'hiroto';
-    document.getElementById("password").value = 'hiroto';
+    // document.getElementById("loginId").value = 'hiroto';
+    // document.getElementById("password").value = 'hiroto';
 
     let loginId = document.getElementById('loginId');
     let password = document.getElementById('password');
@@ -56,7 +56,7 @@ export default function Login() {
           </div>
           <div class="mb-10 mx-auto">
             <span class="text-xl">password</span>
-            <input type="text" id="password" class="mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="パスワード" />
+            <input type="password" id="password" class="mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="パスワード" />
           </div>
         </div>
         <Button func={ loginClick }>ログイン</Button>

@@ -92,6 +92,7 @@ function PointCount() {
     setRoomName(joinRoomName);
 
     await API.get('app/get_score_room?score_room_id=' + roomId).then(res => {
+      console.log(res);
       if ('OK' === res.data.result) {
         setMember(res.data.room.guests);
       }
@@ -244,7 +245,7 @@ function PointCount() {
               <select id="joinMemberNo" class="h-10 rounded-md border-2 border-black">
                 <option value="0">選択してください</option>
                 {members.map(member => (
-                  <option value={ member.member_no }>プレイヤー{ member.member_no }{ member.color_id.name_ja }</option>
+                  <option value={ member.member_no } disabled={ member.use }>プレイヤー{ member.member_no }{ member.color_id.name_ja }</option>
                 ))}
               </select>
             </div>
