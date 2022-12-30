@@ -7,9 +7,9 @@ export default function Footer() {
       <footer>
         <div class="flex justify-between max-w-5xl mx-3 text-white">
           <div>
-            <span class="text-xs">Analoggame Renjoy Tool.com</span>
+            <span class="text-xs">Analoggame Renjoy Tool</span>
           </div>
-          <div>
+          <div class="invisible">
             <Link href="/about" class="mx-3 text-xs">
               サイトについて
             </Link>
