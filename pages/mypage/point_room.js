@@ -273,9 +273,9 @@ function PointRoom() {
             </div>
             <div class="w-1/5 my-auto h-full">
               <div class="h-1/2">
-                <div id={ memberNo } class="h-1/2 my-auto">
+                <div id={ memberNo } class="invisible h-1/2 my-auto">
                   {/* {(0 !== getScores[memberNo]) && */}
-                    <span>{ getScores[memberNo] }</span>
+                    <span>{ (0 < getScores[memberNo]) ? '+' + getScores[memberNo] : getScores[memberNo] }</span>
                   {/* } */}
                 </div>
                 <div class="h-1/2 my-auto">
@@ -284,10 +284,10 @@ function PointRoom() {
               </div>
               <div class="h-1/2 w-full text-base">
                 <div class="h-1/3 w-full my-auto">
-                  <button onClick={ () => changeScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">スコア反映</button>
+                  <button onClick={ () => changeScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">反映</button>
                 </div>
                 <div class="h-1/3 w-full my-auto">
-                  <button onClick={ () => updateScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">スコア更新</button>
+                  <button onClick={ () => updateScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">更新</button>
                 </div>
                 <div class="h-1/3 w-full my-auto">
                   <button onClick={ () => resetScore() } class="text-black bg-white rounded border-2 border-black h-5/6 w-full">リセット</button>
@@ -313,6 +313,26 @@ function PointRoom() {
             </div>
             <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
               <SmallButton func={ () => closeMenu() }>メニューを閉じる</SmallButton>
+            </div>
+            <div class="mt-5">
+              <div class="text-2xl mb-3">
+                使い方
+              </div>
+              <div>
+                このツールはポイントを管理するツールです。<br />
+                全員が入室した後に「更新」ボタンを押すとユーザーネームが出てきます。<br />
+                早く上がった人やポイント管理者が<span class="text-red-500">全員分</span>の得たポイント分「＜＜」「＜」や「＞＞」「＞」を押してください。<br />
+                そして「反映」ボタンを押すと、全員分のスコアが変更されます。<br />
+                またそれ以外の人は「反映」ボタンが押された後に「更新」ボタンを押すと自分の画面に反映されます。<br />
+              </div>
+              <div class="mt-3">
+                <div class="text-2xl mb-3">注意</div>
+                <div>
+                  「反映」ボタン「更新」ボタンを押さずに1時間立つとルームから抜けてログインからやり直しになります。<br />
+                  その場合このルームに戻ることはできなくなります。<br />
+                  定期的に「反映」か「更新」のボタンを押すようにしてください。<br />
+                </div>
+              </div>
             </div>
           </div>
         </CustomModal>
