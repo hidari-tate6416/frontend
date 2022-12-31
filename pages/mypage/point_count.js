@@ -159,65 +159,75 @@ function PointCount() {
           <div class="text-center text-3xl">ルーム作成</div>
           <div class="md:flex mt-5">
             <div class="flex justify-between">
-              <span class="my-auto md:mr-4">ルーム名</span>
-              <input type="text" id="roomName" class="py-2 pl-2 rounded-md border-2 border-black" placeholder="ルーム名" />
+              <div class="w-1/2 my-auto md:mr-4">ルーム名</div>
+              <div class="w-1/2 my-auto"><input type="text" id="roomName" class="w-32 py-2 pl-2 rounded-md border-2 border-black" placeholder="ルーム名" /></div>
             </div>
             <div class="flex justify-between md:ml-10 mt-3">
-              <span class="my-auto md:mr-4">ルームパスワード</span>
-              <input type="text" id="roomPassword" class="py-2 pl-2 rounded-md border-2 border-black" placeholder="1234" />
+              <span class="w-1/2 my-auto md:mr-4">ルームパスワード</span>
+              <div class="w-1/2 my-auto"><input type="text" id="roomPassword" class="w-32 py-2 pl-2 rounded-md border-2 border-black" placeholder="1234" /></div>
             </div>
             <div class="flex justify-between md:ml-10 mt-3">
-              <span class="my-auto md:mr-4">初期点数</span>
-              <input type="text" id="defaultPoint" class="py-2 pl-2 rounded-md border-2 border-black" placeholder="100" />
+              <span class="w-1/2 my-auto md:mr-4">初期点数</span>
+              <div class="w-1/2 my-auto"><input type="text" id="defaultPoint" class="w-32 py-2 pl-2 rounded-md border-2 border-black" placeholder="100" /></div>
             </div>
           </div>
           <div class="md:flex mt-7">
             <div class="flex justify-between">
-              <span class="my-auto md:mr-4">自分のプレイヤーカラー</span>
-              <select id="hostColor" class="h-10 rounded-md border-2 border-black">
-                <option value="0">選択してください</option>
-                {colors.map(color => (
-                  <option value={ color.id }>{ color.name }</option>
-                ))}
-              </select>
+              <span class="w-1/2 my-auto md:mr-4">自分のカラー</span>
+              <div class="w-1/2 my-auto">
+                <select id="hostColor" class="w-32 h-10 rounded-md border-2 border-black">
+                  <option value="0">選択してください</option>
+                  {colors.map(color => (
+                    <option value={ color.id }>{ color.name }</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
           <div class="md:flex">
             <div class="flex justify-between mt-3">
-              <span class="my-auto md:mr-4">プレイヤー1カラー</span>
-              <select id="guest1Color" class="h-10 rounded-md border-2 border-black">
-                <option value="0">プレイヤーなし</option>
-                {colors.map(color => (
-                  <option value={ color.id }>{ color.name }</option>
-                ))}
-              </select>
+              <span class="w-1/2 my-auto md:mr-4">プレイヤー1カラー</span>
+              <div class="w-1/2 my-auto">
+                <select id="guest1Color" class="w-32 h-10 rounded-md border-2 border-black">
+                  <option value="0">プレイヤーなし</option>
+                  {colors.map(color => (
+                    <option value={ color.id }>{ color.name }</option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div class="flex justify-between mt-3 md:ml-3">
-              <span class="my-auto md:mr-4">プレイヤー2カラー</span>
-              <select id="guest2Color" class="h-10 rounded-md border-2 border-black">
-                <option value="0">プレイヤーなし</option>
-                {colors.map(color => (
-                  <option value={ color.id }>{ color.name }</option>
-                ))}
-              </select>
+              <span class="w-1/2 my-auto md:mr-4">プレイヤー2カラー</span>
+              <div class="w-1/2 my-auto">
+                <select id="guest2Color" class="w-32 h-10 rounded-md border-2 border-black">
+                  <option value="0">プレイヤーなし</option>
+                  {colors.map(color => (
+                    <option value={ color.id }>{ color.name }</option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div class="flex justify-between mt-3 md:ml-3">
-              <span class="my-auto md:mr-4">プレイヤー3カラー</span>
-              <select id="guest3Color" class="h-10 rounded-md border-2 border-black">
-                <option value="0">プレイヤーなし</option>
-                {colors.map(color => (
-                  <option value={ color.id }>{ color.name }</option>
-                ))}
-              </select>
+              <span class="w-1/2 my-auto md:mr-4">プレイヤー3カラー</span>
+              <div class="w-1/2 my-auto">
+                <select id="guest3Color" class="w-32 h-10 rounded-md border-2 border-black">
+                  <option value="0">プレイヤーなし</option>
+                  {colors.map(color => (
+                    <option value={ color.id }>{ color.name }</option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div class="flex justify-between mt-3 md:ml-3">
-              <span class="my-auto md:mr-4">プレイヤー4カラー</span>
-              <select id="guest4Color" class="h-10 rounded-md border-2 border-black">
-                <option value="0">プレイヤーなし</option>
-                {colors.map(color => (
-                  <option value={ color.id }>{ color.name }</option>
-                ))}
-              </select>
+              <span class="w-1/2 my-auto md:mr-4">プレイヤー4カラー</span>
+              <div class="w-1/2 my-auto">
+                <select id="guest4Color" class="w-32 h-10 rounded-md border-2 border-black">
+                  <option value="0">プレイヤーなし</option>
+                  {colors.map(color => (
+                    <option value={ color.id }>{ color.name }</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
           <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
@@ -237,17 +247,19 @@ function PointCount() {
               <span class="my-auto">{ roomName }</span>
             </div>
             <div class="flex justify-between md:ml-10 my-auto mb-3">
-              <span class="my-auto md:mr-4">ルームパスワード</span>
-              <input type="text" id="joinRoomPassword" class="py-2 pl-2 rounded-md border-2 border-black" placeholder="1234" />
+              <span class="w-1/2 my-auto md:mr-4">ルームパスワード</span>
+              <div class="w-1/2 my-auto"><input type="text" id="joinRoomPassword" class="w-32 py-2 pl-2 rounded-md border-2 border-black" placeholder="1234" /></div>
             </div>
             <div class="flex justify-between md:ml-10 my-auto mb-3">
-              <span class="my-auto md:mr-4">自分のプレイヤーカラー</span>
-              <select id="joinMemberNo" class="h-10 rounded-md border-2 border-black">
-                <option value="0">選択してください</option>
-                {members.map(member => (
-                  <option value={ member.member_no } disabled={ member.use }>プレイヤー{ member.member_no }{ member.color_id.name_ja }</option>
-                ))}
-              </select>
+              <span class="w-1/2 my-auto md:mr-4">自分のカラー</span>
+              <div class="w-1/2 my-auto">
+                <select id="joinMemberNo" class="w-32 h-10 rounded-md border-2 border-black">
+                  <option value="0">選択してください</option>
+                  {members.map(member => (
+                    <option value={ member.member_no } disabled={ member.use }>プレイヤー{ member.member_no }{ member.color_id.name_ja }</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
           <div class="mt-3 w-full md:w-1/2 mx-auto text-center">
